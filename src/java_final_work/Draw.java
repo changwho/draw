@@ -25,6 +25,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
@@ -43,6 +44,7 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.Shape;
 
 public class Draw extends JPanel implements MouseListener, MouseMotionListener, ItemListener, ActionListener, ChangeListener{//中央画布
 		public BufferedImage bufImg;//记录最新画面，并在此上作画
@@ -324,6 +326,7 @@ rectangle2D_select.getWidth(),(int)rectangle2D_select.getHeight());
 				polygon.addPoint(x2, y2);
 				repaint();
 			}
+
 			if(Painter.drawMethod==10){
 				if(cut!=2) cut=1;
 				select_x=(int)rectangle2D_select.getX();
@@ -544,6 +547,57 @@ temp_y2),start,end,pie_shape);
 				rectangle2D.setRect(Math.min(input_x1,input_x2),Math.min(input_y1,input_y2),Math.abs(input_x1-input_x2),Math.abs(input_y1- 
 input_y2));
 			}
+			else if (Painter.drawMethod==12){			    
+		        GeneralPath star = new GeneralPath();
+		        double outerAngleIncrement = 2 * Math.PI / 5;
+		        double outerAngle = 0.0;
+		        double innerAngle = outerAngleIncrement / 2.0;
+		        double outerRadius=(input_x1+input_x2)/2;
+		        double innerRadius=outerRadius/2.4;
+		        double x = input_x1/2;
+		        double y = input_y1/2;
+		        x += outerRadius;
+		        y += outerRadius;
+		        float x1 = (float) (Math.cos(outerAngle) * outerRadius + x);
+		        float y1 = (float) (Math.sin(outerAngle) * outerRadius + y);
+		        float x2 = (float) (Math.cos(innerAngle) * innerRadius + x);
+		        float y2 = (float) (Math.sin(innerAngle) * innerRadius + y);
+		        star.moveTo(x1, y1);
+		        star.lineTo(x2, y2);
+		        outerAngle += outerAngleIncrement;
+		        innerAngle += outerAngleIncrement;
+		        for (int i = 1; i < 5; i++) {
+		            x1 = (float) (Math.cos(outerAngle) * outerRadius + x);
+		            y1 = (float) (Math.sin(outerAngle) * outerRadius + y);
+		            star.lineTo(x1, y1);
+		            x2 = (float) (Math.cos(innerAngle) * innerRadius + x);
+		            y2 = (float) (Math.sin(innerAngle) * innerRadius + y);
+		            star.lineTo(x2, y2);
+		            outerAngle += outerAngleIncrement;
+		            innerAngle += outerAngleIncrement;
+		        }
+		        star.closePath();
+
+			    Painter.shape=star;
+		    }
+			
+			else if (Painter.drawMethod==13){			    
+		        GeneralPath heart = new GeneralPath();
+		        
+		        double x,y,r=(input_x1+input_x2)/10;
+		        heart.moveTo(Math.abs(input_x1-input_x2), -r-Math.abs(input_x1-input_x2)+400);
+		        for (double i=0;i<=100;i=i+0.1)
+		        {
+		            y=r*(2*Math.cos(i)-Math.cos(2*i))+Math.abs(input_x1-input_x2);
+		            x=r*(2*Math.sin(i)-Math.sin(2*i))+Math.abs(input_x1-input_x2);
+		            heart.lineTo(x, -y+400);
+		        }
+		        heart.closePath();
+			    Painter.shape=heart;
+		    }
+
+
+
 			if(Painter.color_border instanceof GradientPaint){//使用渐层填色读取拖拉坐标
 				Painter.color_border = new GradientPaint( input_x1,input_y1, (Color)((GradientPaint)Painter.color_border).getColor1(), input_x2,input_y2,  
 (Color)((GradientPaint)Painter.color_border).getColor2(), true );
@@ -560,7 +614,7 @@ input_y2));
 
 			if(press==1 && Painter.drawMethod!=10 && !(x1<0 || y1<0)) {//绘图在最上面的JLabel上，并判断是不是起点才画
 				draw(x1,y1,x2,y2);
-				if(Painter.drawMethod==8) return;
+			//	if(Painter.drawMethod==8) return;
 				if(Painter.color_inside!=null){
 					g2d.setPaint(Painter.color_inside);
 					g2d.fill(Painter.shape);

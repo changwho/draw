@@ -48,16 +48,16 @@ public class Painter extends JFrame implements ActionListener {
 	};
 	static	JMenuItem jMenuItem[][]=new JMenuItem[4][5];
 	static	JMenu jMenu[];
-	private	String ButtonName[]={"直线","矩开","椭圆","圆角矩形","贝氏曲线","扇型","多边形","铅笔","橡皮擦","文字","选取","油漆桶"};
+	private	String ButtonName[]={"直线","矩形","椭圆","圆角矩形","贝氏曲线","扇型","多边形","铅笔","橡皮擦","文字","选取","油漆桶","星形","心形"};
 	static JToggleButton jToggleButton[];
 	static ButtonGroup buttonGroup;
 	static	JPanel jPanel[]=new JPanel[5];//1绘图区,2工具箱,3色块,4属性栏
 	//工具箱每个工具的名字以图像显示
 	static	String toolname[]= 
 {"src/img/tool1.gif","src/img/tool2.gif","src/img/tool3.gif","src/img/tool4.gif","src/img/tool5.gif","src/img/tool8.gif","src/img/tool9.gif","src/img/tool7.gif",
-		"src/img/tool6.gif","src/img/tool10.gif","src/img/tool11.gif","src/img/tool12.gif"};
+		"src/img/tool6.gif","src/img/tool10.gif","src/img/tool11.gif","src/img/tool12.gif","src/img/tool13.gif","src/img/tool14.gif"};
 
-	static	Icon tool[]=new ImageIcon[12];
+	static	Icon tool[]=new ImageIcon[14];
 	static	int i,j,show_x,show_y,drawMethod=7,draw_panel_width=700,draw_panel_height=500;
 	static Paint color_border,color_inside;
 	static SetPanel setPanel;
@@ -136,6 +136,8 @@ public class Painter extends JFrame implements ActionListener {
 		jToolBar.add(jToggleButton[9]);
 		jToolBar.add(jToggleButton[10]);
 		jToolBar.add(jToggleButton[11]);
+		jToolBar.add(jToggleButton[12]);
+		jToolBar.add(jToggleButton[13]);
 		jToggleButton[7].setSelected(true);//打开时默认工具为铅笔
 		jToolBar.setLayout( new GridLayout( 7, 2, 2, 2 ) );
 		jPanel[2].setLayout(new BoxLayout(jPanel[2], BoxLayout.Y_AXIS));
@@ -273,7 +275,7 @@ public class Painter extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 		else if(e.getSource()==jMenuItem[2][0]){//关于
-			JOptionPane.showMessageDialog(null, "且听风吟 静绘人生", "关于", 1, new ImageIcon("img/paint.gif"));
+			JOptionPane.showMessageDialog(null, "谢文彬\n杨靖\n张宣", "作者", 1, new ImageIcon("img/paint.gif"));
 		}
 		
 	}
