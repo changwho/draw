@@ -302,7 +302,7 @@ rectangle2D_select.getWidth(),(int)rectangle2D_select.getHeight());
 			{
 				FloodFillAlgorithm ffa;
 				ffa = new FloodFillAlgorithm(bufImg);
-				ffa.floodFillScanLineWithStack(x1, y1, Color.cyan.getRGB(), ffa.getColor(x1, y1)); 
+				ffa.floodFillScanLineWithStack(x1, y1, new Color(ColorPanel.iiR,ColorPanel.iiG,ColorPanel.iiB).getRGB(), ffa.getColor(x1, y1)); 
 				ffa.updateResult();
 				repaint();
 			}
@@ -399,13 +399,7 @@ rectangle2D_select.getWidth(),(int)rectangle2D_select.getHeight());
     			toDraw();
     		}
     		click=1;
-//    		x1=e.getX();
-//			y1=e.getY();
-//			FloodFillAlgorithm ffa;
-//			ffa = new FloodFillAlgorithm(bufImg);
-//			ffa.floodFillScanLineWithStack(x1, y1, Color.GREEN.getRGB(), ffa.getColor(x1, y1)); 
-//			ffa.updateResult();
-//			repaint();
+
     		
     	}
     	
@@ -614,7 +608,7 @@ input_y2));
 
 			if(press==1 && Painter.drawMethod!=10 && !(x1<0 || y1<0)) {//绘图在最上面的JLabel上，并判断是不是起点才画
 				draw(x1,y1,x2,y2);
-			//	if(Painter.drawMethod==8) return;
+				if(Painter.drawMethod==8) return;
 				if(Painter.color_inside!=null){
 					g2d.setPaint(Painter.color_inside);
 					g2d.fill(Painter.shape);

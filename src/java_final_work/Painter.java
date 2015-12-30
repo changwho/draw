@@ -185,6 +185,7 @@ public class Painter extends JFrame implements ActionListener {
 	@SuppressWarnings("deprecation")
 	public void save(){
 		FileDialog fileDialog = new FileDialog( new Frame() , "请指定一个文件名", FileDialog.SAVE );
+		fileDialog.setVisible(true);;
 		if(fileDialog.getFile()==null) return;
 		drawPanel.filename = fileDialog.getDirectory()+fileDialog.getFile();
 	}
