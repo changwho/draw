@@ -175,7 +175,7 @@ public class Painter extends JFrame implements ActionListener {
 	
 		
 		setSize(draw_panel_width,draw_panel_height);
-		setTitle("¾²»æ");
+		setTitle("»­°å--Ð»ÎÄ±ò£¬Ñî¾¸£¬ÕÅÐû");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
